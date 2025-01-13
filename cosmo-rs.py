@@ -53,7 +53,7 @@ def args_parser():
 	parser.add_argument ("--job", metavar="FILE", nargs='+', required=True, help = 'jobname for files with coordinates data (XYZ format)')
 	parser.add_argument ("--method", type=str, required=True, help = 'method for calculated properties in vacuum')
 	parser.add_argument ("--solventfile", metavar="FILE", help = 'solvent file for calculate free energy')
-	parser.add_argument ("--solvent", type=str, default="water", help = 'solvent for calculate free energy')
+	parser.add_argument ("--solvent", type=str, default="water", help = 'solvent name for calculate free energy')
 	parser.add_argument ("-n", "--nthreads", type=int, default=1, help = 'number of CPUs')
 	parser.add_argument ("-v", "--version", action="version", version=VERSION, help = 'print version')
 	parser.add_argument ("-c", "--charge", type=int, default=0, help = 'charge of system')

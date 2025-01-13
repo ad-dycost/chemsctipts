@@ -101,4 +101,48 @@ Total execution time:  247.846  sec.
 ```
 The comment for the job is taken from the comment line (second) of the file.
 
-Geometry optimization in water and octanol is performed using the B3LYP-D4/def2-SVPD method.
+Geometry optimization in water and octanol is performed using the B3LYP-D4/def2-SVPD method and SMD models for the solvent. The solvation energy is calculated using the COSMO-RS model. Only solvation energies are taken into account, the vibrational-rotational energies are assumed to be the same in both solvents.
+
+### cosmo-rs.py
+Run:
+```
+cosmo-rs.py [-h] --job FILE [FILE ...] --method METHOD [--solventfile FILE] [--solvent SOLVENT] [-n NTHREADS] [-v] [-c CHARGE] [--novacuum [NOVACUUM ...]]
+
+```
+FILE - file name atomic coordinates (in XYZ format)  
+METHOD - method for calculated properties in vacuum  
+solventfile - solvent file for calculate free energy (see ORCA6 manual, page 1027)  
+solvent - solvent name for calculate free energy (see ORCA6 manual, table of solvents), default water  
+CHARGE - charge of system, dafault 0  
+NOVACUUM - skip calculation in vacuum  
+NTHREADS - number of threads
+
+The script contains variables that you can override according to your own settings:
+- WORK_DIR  
+Scratch directory.
+- ORCA_DIR  
+The directory where the ORCA package is installed.
+
+Example:
+```
+cosmo-rs.py --job NH3.r2SCAN-3c.SMD\(H2O\).xyz --method "r2SCAN-3c" --solvent "ethanol" -n 6
+```
+```
+Job = NH3.r2SCAN-3c.SMD(H2O).xyz
+Job = NH3.r2SCAN-3c.SMD(H2O).xyz
+Free energy in gas     :  -56.525536  Hartree
+Electronic energy      :  -56.541858  Hartree
+Free energy solvalation:  -0.005961  Hartree
+Job execution time  :  20.506  sec.
+Total execution time:  20.506  sec.
+
+Job = HNCO.r2SCAN-3c.SMD(H2O).xyz
+Free energy in gas     :  -168.663383  Hartree
+Electronic energy      :  -168.661779  Hartree
+Free energy solvalation:  -0.006904  Hartree
+Job execution time  :  25.769  sec.
+Total execution time:  46.275  sec.
+```
+The comment for the job is taken from the comment line (second) of the file.
+
+Geometry optimization in water and octanol is performed using the B3LYP-D4/def2-SVPD method and SMD models for the solvent. The solvation energy is calculated using the COSMO-RS model. Only solvation energies are taken into account, the vibrational-rotational energies are assumed to be the same in both solvents.
