@@ -51,7 +51,7 @@ Scratch directory.
 - ORCA_DIR  
 The directory where the ORCA package is installed.
 
-Example (startup directory must contain the following files: NH3.r2SCAN-3c.SMD(H2O).xyz and NH3.r2SCAN-3c.SMD(H2O).hess):
+Example:
 ```
 free_energy_liquid.py --job "NH3.r2SCAN-3c.SMD(H2O)" -t 400 600
 ```
@@ -69,3 +69,36 @@ Total Gibbs energy in liquid, Hartree          = 0.02541127	0.01859969
 Total execution time:  1.722  sec.
 ```
 The result given by the program is an addition for electronic energy.
+
+Startup directory must contain the following files: NH3.r2SCAN-3c.SMD(H2O).xyz and NH3.r2SCAN-3c.SMD(H2O).hess
+
+### logP.py
+Run:
+```
+logP.py [-h] --job FILE [FILE ...] [-n NTHREADS] [-v]
+```
+FILE - file name atomic coordinates (in XYZ format)  
+NTHREADS - number of threads
+
+The script contains variables that you can override according to your own settings:
+- WORK_DIR  
+Scratch directory.
+- ORCA_DIR  
+The directory where the ORCA package is installed.
+
+Example:
+```
+logP.py --job NH3.r2SCAN-3c.SMD\(H2O\).xyz HNCO.r2SCAN-3c.SMD\(H2O\).xyz -n 6
+```
+```
+For job NH3 LogP = -1.2798004583245164
+Job execution time  :  90.885  sec.
+Total execution time:  90.885  sec.
+
+For job HNCO LogP = 0.648563488539062
+Job execution time  :  156.961  sec.
+Total execution time:  247.846  sec.
+```
+The comment for the job is taken from the comment line (second) of the file.
+
+Geometry optimization in water and octanol is performed using the B3LYP-D4/def2-SVPD method.

@@ -176,7 +176,7 @@ for job in filenames_xyz:
 		f.write(res)
 		f.close()
 		# return of results
-		print("LogP".ljust(20, " "), " =", LogP)
+		print(res[:-1])
 	except:
 		f = open("error.log", "w")
 		f.write(DATA_RES[0])
@@ -197,5 +197,5 @@ for job in filenames_xyz:
 	f.close()
 	
 	print("Job execution time  : ", "%.3f" % (time.time() - T_0), " sec.")
-	print("Total execution time: ", "%.3f" % (time.time() - T_00), " sec.")
+	print("Total execution time: ", "%.3f" % (time.time() - T_00), " sec." ,"\n")
 	T_0 = time.time()
