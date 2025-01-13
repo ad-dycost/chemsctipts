@@ -11,6 +11,8 @@ Calculation of the Gibbs free energy in the solvent using the method given in 10
 Calculation of the lipophilicity index using continuous solvent models.
 - cosmo-rs.py  
 Calculation of solvation energy using the COSMO-RS model.
+- orca2xyz.py  
+Extracting trajectories from ORCA output files.
 ## Requirements:
 - ORCA 6
 - Python 3
