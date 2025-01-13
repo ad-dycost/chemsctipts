@@ -129,7 +129,6 @@ cosmo-rs.py --job NH3.r2SCAN-3c.SMD\(H2O\).xyz --method "r2SCAN-3c" --solvent "e
 ```
 ```
 Job = NH3.r2SCAN-3c.SMD(H2O).xyz
-Job = NH3.r2SCAN-3c.SMD(H2O).xyz
 Free energy in gas     :  -56.525536  Hartree
 Electronic energy      :  -56.541858  Hartree
 Free energy solvalation:  -0.005961  Hartree
@@ -143,6 +142,6 @@ Free energy solvalation:  -0.006904  Hartree
 Job execution time  :  25.769  sec.
 Total execution time:  46.275  sec.
 ```
-The comment for the job is taken from the comment line (second) of the file.
+The comment for the job is name of file whith coordinates.
 
-Geometry optimization in water and octanol is performed using the B3LYP-D4/def2-SVPD method and SMD models for the solvent. The solvation energy is calculated using the COSMO-RS model. Only solvation energies are taken into account, the vibrational-rotational energies are assumed to be the same in both solvents.
+Geometry optimization is not performed; for vacuum, only the Hessian for the original geometry is calculated.
