@@ -19,9 +19,9 @@ Extracting trajectories from ORCA output files.
 ## Manual
 ### startorca.py
 Run:
-...
+```
 startorca.py N_proc INPUTS
-...
+```
 N_proc - number of threads  
 INPUTS - inpit files separated by spaces
 
