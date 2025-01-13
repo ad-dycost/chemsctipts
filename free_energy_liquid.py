@@ -57,6 +57,7 @@ def args_parser():
 	parser.add_argument ("--job", metavar="FILE", required=True, help = 'jobname for files with coordinates data (XYZ format) and hessian data (ORCA format)')
 	parser.add_argument ("-c", "--charge", type=int, default=0, help = 'charge of system')
 	parser.add_argument ("-t", "--temperature", nargs='+', default=[298], help = 'temperature')
+	parser.add_argument ("-n", "--nthreads", type=int, default=1, help = 'number of CPUs')
 
 	return parser
 
@@ -69,6 +70,7 @@ filename_xyz = namespace.job + ".xyz"
 filename_hess = namespace.job + ".hess"
 charge = namespace.charge
 temperature = list(map(float,namespace.temperature))
+nproc = namespace.nthreads
 
 # read data from files
 XYZ_file = open(filename_xyz, "r")
@@ -78,6 +80,7 @@ N_atoms = int(XYZ_data.partition("\n")[0])
 XYZ_coords = "\n".join(XYZ_data.split("\n")[2:2 + N_atoms])
 
 INPUT_DIR = os.getcwd()
+PAR_STR = '''%pal nprocs ''' + str(nproc) + ''' end\n'''
 
 # function calculate of free volume, angstrom^3
 def V_free(V_mol, V_cav):
@@ -95,7 +98,7 @@ def str_f(f):
 # templates from job
 
 # Volume_Bader.inp
-Volume_Bader = '''* xyz ''' + str(charge) + ''' 1 \n''' + XYZ_coords + '''
+Volume_Bader = PAR_STR + '''* xyz ''' + str(charge) + ''' 1 \n''' + XYZ_coords + '''
 *
 
 ! RHF SVP NOITER
@@ -116,7 +119,7 @@ Volume_Bader = '''* xyz ''' + str(charge) + ''' 1 \n''' + XYZ_coords + '''
 end'''
 
 # Volume_IDSCRF.inp
-Volume_IDSCRF = '''* xyz ''' + str(charge) + ''' 1 \n''' + XYZ_coords + '''
+Volume_IDSCRF = PAR_STR + '''* xyz ''' + str(charge) + ''' 1 \n''' + XYZ_coords + '''
 *
 
 ! RHF SVP NOITER
@@ -137,7 +140,7 @@ Volume_IDSCRF = '''* xyz ''' + str(charge) + ''' 1 \n''' + XYZ_coords + '''
 end'''
 
 # Thermochem.inp
-Thermochem = '''! printthermochem
+Thermochem = PAR_STR + '''! printthermochem
 
 %geom
 	inhessname "''' + INPUT_DIR + "/" + filename_hess + '''"

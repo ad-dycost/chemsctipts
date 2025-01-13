@@ -39,11 +39,12 @@ In scratch directory, input files are renamed according to the template active_%
 ### free_energy_liquid.py
 Run:
 ```
-free_energy_liquid.py [-h] --job FILE [-c CHARGE] [-t TEMPERATURE [TEMPERATURE ...]]
+free_energy_liquid.py [-h] --job FILE [-c CHARGE] [-t TEMPERATURE [TEMPERATURE ...]] [-n NTHREADS]
 ```
 FILE - file name (without extension) with atomic coordinates (in XYZ format) and Hessian are taken from previous job on geometry optimization and Hessian calculation in ORCA  
 CHARGE - charge of system, default 0  
 TEMPERATURE - temperarure(s) in Kelvin at which thermodynamic parameters will be calculated (separated by spaces), default 298
+NTHREADS - number of thread, default 1
 
 The script contains variables that you can override according to your own settings:
 - WORK_DIR  
@@ -78,7 +79,7 @@ Run:
 logP.py [-h] --job FILE [FILE ...] [-n NTHREADS] [-v]
 ```
 FILE - file name atomic coordinates (in XYZ format)  
-NTHREADS - number of threads
+NTHREADS - number of thread, default 1
 
 The script contains variables that you can override according to your own settings:
 - WORK_DIR  
@@ -115,7 +116,7 @@ solventfile - solvent file for calculate free energy (see ORCA6 manual, page 102
 solvent - solvent name for calculate free energy (see ORCA6 manual, table of solvents), default water  
 CHARGE - charge of system, dafault 0  
 NOVACUUM - skip calculation in vacuum  
-NTHREADS - number of threads
+NTHREADS - number of thread, default 1
 
 The script contains variables that you can override according to your own settings:
 - WORK_DIR  
