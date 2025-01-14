@@ -107,16 +107,17 @@ Geometry optimization in water and octanol is performed using the B3LYP-D4/def2-
 ### cosmo-rs.py
 Run:
 ```
-cosmo-rs.py [-h] --job FILE [FILE ...] --method METHOD [--solventfile FILE] [--solvent SOLVENT] [-n NTHREADS] [-v] [-c CHARGE] [--novacuum [NOVACUUM ...]]
+cosmo-rs.py [-h] --job FILE [FILE ...] --method METHOD [--solventfile FILE] [--solvent SOLVENT] [-n NTHREADS] [-v] [-c CHARGE] [--novacuum [NOVACUUM ...]] [--opt [OPT ...]]
 
 ```
 FILE - file name atomic coordinates (in XYZ format)  
-METHOD - method for calculated properties in vacuum  
+METHOD - method for calculated properties in vacuum and geometry optimization 
 solventfile - solvent file for calculate free energy (see ORCA6 manual, page 1027)  
 solvent - solvent name for calculate free energy (see ORCA6 manual, table of solvents), default water  
 CHARGE - charge of system, dafault 0  
 NOVACUUM - skip calculation in vacuum  
 NTHREADS - number of thread, default 1
+OPT - optimization geometry with use SMD and solvent from option "--solvent"
 
 The script contains variables that you can override according to your own settings:
 - WORK_DIR  
@@ -145,4 +146,4 @@ Total execution time:  46.275  sec.
 ```
 The comment for the job is name of file whith coordinates.
 
-Geometry optimization is not performed; for vacuum, only the Hessian for the original geometry is calculated.
+Geometry optimization is performed using the SMD model; when the --opt option is disabled, only the Hessian is calculated in vacuum.

@@ -51,13 +51,14 @@ T = 298.15
 def args_parser():
 	parser = argparse.ArgumentParser()
 	parser.add_argument ("--job", metavar="FILE", nargs='+', required=True, help = 'jobname for files with coordinates data (XYZ format)')
-	parser.add_argument ("--method", type=str, required=True, help = 'method for calculated properties in vacuum')
+	parser.add_argument ("--method", type=str, required=True, help = 'method for calculated properties in vacuum and geometry optimization')
 	parser.add_argument ("--solventfile", metavar="FILE", help = 'solvent file for calculate free energy')
 	parser.add_argument ("--solvent", type=str, default="water", help = 'solvent name for calculate free energy')
 	parser.add_argument ("-n", "--nthreads", type=int, default=1, help = 'number of CPUs')
 	parser.add_argument ("-v", "--version", action="version", version=VERSION, help = 'print version')
 	parser.add_argument ("-c", "--charge", type=int, default=0, help = 'charge of system')
 	parser.add_argument ("--novacuum", help = 'to skip calculation in vacuum', nargs='*')
+	parser.add_argument ("--opt", help = 'optimization geometry with use SMD and solvent from option "--solvent"', nargs='*')
 	return parser
 
 
@@ -86,6 +87,12 @@ def read_xyz_coord(file_xyz):
 
 
 PAR_STR = '''%pal nprocs ''' + str(NPROC) + ''' end\n'''
+FREQ_STR = '''! freq KDIIS DAMP SOSCF LSHIFT rijcosx\n'''
+SMD_STR = '''%cpcm
+	smd true
+	SMDsolvent "''' + SOLVENT + '''"
+	surfacetype vdw_gaussian
+end\n'''
 INPUT_DIR = os.getcwd()
 
 
@@ -102,12 +109,24 @@ end\n'''
 	return PAR_STR + par + '''* xyz ''' + CHARGE + ''' 1 \n''' + coords + '''\n*'''
 
 def job_vac(coords):
-	if namespace.novacuum == None:
-		res = PAR_STR + ''' ! ''' + METHOD + '''
-! freq KDIIS DAMP SOSCF LSHIFT rijcosx
+	if namespace.novacuum != None and namespace.opt != None:
+		res = PAR_STR + ''' ! opt ''' + METHOD + '''\n''' + SMD_STR + '''* xyz ''' + CHARGE + ''' 1 \n''' + coords + '''\n*'''
+	elif namespace.novacuum == None and namespace.opt != None:
+		res = PAR_STR + '''* xyz ''' + CHARGE + ''' 1 \n''' + coords + '''\n*''' + '''
+%Compound
+New_Step
+! opt ''' + METHOD + '''\n''' + SMD_STR + '''
+STEP_END
 
-* xyz ''' + CHARGE + ''' 1 \n''' + coords + '''\n*'''
-	else:
+New_Step
+! ''' + METHOD + '''\n''' + FREQ_STR + '''
+STEP_END
+
+end
+'''
+	elif namespace.novacuum == None and namespace.opt == None:
+		res = PAR_STR + ''' ! ''' + METHOD + '''\n''' + FREQ_STR + '''* xyz ''' + CHARGE + ''' 1 \n''' + coords + '''\n*'''
+	elif namespace.novacuum != None and namespace.opt == None:
 		res = '''! NOITER
 * xyz ''' + CHARGE + ''' 1 \n''' + coords + '''\n*'''
 	return res
