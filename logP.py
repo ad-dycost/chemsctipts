@@ -55,6 +55,7 @@ def args_parser():
 	parser.add_argument ("-n", "--nthreads", type=int, default=1, help = 'number of CPUs')
 	parser.add_argument ("-v", "--version", action="version", version=VERSION, help = 'print version')
 	parser.add_argument ("-c", "--charge", type=int, default=0, help = 'charge of system')
+	parser.add_argument ("--method", type=str, default="r2SCAN-3c", help = 'method for geometry optimization')
 	return parser
 
 
@@ -65,6 +66,7 @@ namespace = parser.parse_args()
 filenames_xyz = namespace.job
 NPROC = namespace.nthreads
 CHARGE = str(namespace.charge)
+METHOD = '''! ''' + namespace.method + "\n"
 
 # read coordinates and name from XYZ file
 def read_xyz_coord(file_xyz):
@@ -98,8 +100,8 @@ end
 
 
 def job_opt(coords, solvent):
-	return PAR_STR + '''! opt B3LYP D4 rijcosx def2-SVPD
-! KDIIS DAMP SOSCF LSHIFT
+	return PAR_STR + METHOD + '''! opt
+! KDIIS DAMP SOSCF LSHIFT rijcosx 
 
 %cpcm
 	smd true

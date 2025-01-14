@@ -76,11 +76,12 @@ Startup directory must contain the following files: NH3.r2SCAN-3c.SMD(H2O).xyz a
 ### logP.py
 Run:
 ```
-logP.py [-h] --job FILE [FILE ...] [-n NTHREADS] [-v] [-c CHARGE]
+logP.py [-h] --job FILE [FILE ...] [-n NTHREADS] [-v] [-c CHARGE] [--method METHOD]
 ```
 --job - file name atomic coordinates (in XYZ format)  
--n - number of thread, default 1
--c - charge of system, default 0
+-n - number of thread, default 1  
+-c - charge of system, default 0  
+--method - method for geometry optimization, default "r2SCAN-3c"
 
 The script contains variables that you can override according to your own settings:
 - WORK_DIR  
@@ -103,7 +104,7 @@ Total execution time:  247.846  sec.
 ```
 The comment for the job is taken from the comment line (second) of the file.
 
-Geometry optimization in water and octanol is performed using the B3LYP-D4/def2-SVPD method and SMD models for the solvent. The solvation energy is calculated using the COSMO-RS model. Only solvation energies are taken into account, the vibrational-rotational energies are assumed to be the same in both solvents.
+Geometry optimization in water and octanol is performed using the SMD models solvent. The solvation energy is calculated using the COSMO-RS model. Only solvation energies are taken into account, the vibrational-rotational energies are assumed to be the same in both solvents.
 
 ### cosmo-rs.py
 Run:
