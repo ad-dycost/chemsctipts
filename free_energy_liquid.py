@@ -58,6 +58,7 @@ def args_parser():
 	parser.add_argument ("-c", "--charge", type=int, default=0, help = 'charge of system')
 	parser.add_argument ("-t", "--temperature", nargs='+', default=[298], help = 'temperature')
 	parser.add_argument ("-n", "--nthreads", type=int, default=1, help = 'number of CPUs')
+	parser.add_argument ("-v", "--version", action="version", version=VERSION, help = 'print version')
 
 	return parser
 

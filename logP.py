@@ -54,6 +54,7 @@ def args_parser():
 	parser.add_argument ("--job", metavar="FILE", nargs='+', required=True, help = 'jobname for files with coordinates data (XYZ format)')
 	parser.add_argument ("-n", "--nthreads", type=int, default=1, help = 'number of CPUs')
 	parser.add_argument ("-v", "--version", action="version", version=VERSION, help = 'print version')
+	parser.add_argument ("-c", "--charge", type=int, default=0, help = 'charge of system')
 	return parser
 
 
@@ -63,6 +64,7 @@ namespace = parser.parse_args()
 # read parameters from command-line arguments
 filenames_xyz = namespace.job
 NPROC = namespace.nthreads
+CHARGE = str(namespace.charge)
 
 # read coordinates and name from XYZ file
 def read_xyz_coord(file_xyz):
@@ -92,7 +94,7 @@ def job_CRS(coords, solvent):
 	return PAR_STR + '''%cosmors
 	solvent "''' + solvent + '''"
 end
-* xyz ''' + '''0''' + ''' 1 \n''' + coords + '''\n*'''
+* xyz ''' + CHARGE + ''' 1 \n''' + coords + '''\n*'''
 
 
 def job_opt(coords, solvent):
@@ -103,7 +105,7 @@ def job_opt(coords, solvent):
 	smd true
 	SMDsolvent "''' + solvent + '''"
 end
-* xyz 0 1 \n''' + coords + '''\n*'''
+* xyz 0 ''' + CHARGE +  '''\n''' + coords + '''\n*'''
 
 
 

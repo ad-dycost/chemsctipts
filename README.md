@@ -41,10 +41,10 @@ Run:
 ```
 free_energy_liquid.py [-h] --job FILE [-c CHARGE] [-t TEMPERATURE [TEMPERATURE ...]] [-n NTHREADS]
 ```
-FILE - file name (without extension) with atomic coordinates (in XYZ format) and Hessian are taken from previous job on geometry optimization and Hessian calculation in ORCA  
-CHARGE - charge of system, default 0  
-TEMPERATURE - temperarure(s) in Kelvin at which thermodynamic parameters will be calculated (separated by spaces), default 298
-NTHREADS - number of thread, default 1
+--job - file name (without extension) with atomic coordinates (in XYZ format) and Hessian are taken from previous job on geometry optimization and Hessian calculation in ORCA  
+-c - charge of system, default 0  
+-t - temperarure(s) in Kelvin at which thermodynamic parameters will be calculated (separated by spaces), default 298
+-n - number of thread, default 1
 
 The script contains variables that you can override according to your own settings:
 - WORK_DIR  
@@ -76,10 +76,11 @@ Startup directory must contain the following files: NH3.r2SCAN-3c.SMD(H2O).xyz a
 ### logP.py
 Run:
 ```
-logP.py [-h] --job FILE [FILE ...] [-n NTHREADS] [-v]
+logP.py [-h] --job FILE [FILE ...] [-n NTHREADS] [-v] [-c CHARGE]
 ```
-FILE - file name atomic coordinates (in XYZ format)  
-NTHREADS - number of thread, default 1
+--job - file name atomic coordinates (in XYZ format)  
+-n - number of thread, default 1
+-c - charge of system, default 0
 
 The script contains variables that you can override according to your own settings:
 - WORK_DIR  
@@ -110,14 +111,14 @@ Run:
 cosmo-rs.py [-h] --job FILE [FILE ...] --method METHOD [--solventfile FILE] [--solvent SOLVENT] [-n NTHREADS] [-v] [-c CHARGE] [--novacuum [NOVACUUM ...]] [--opt [OPT ...]]
 
 ```
-FILE - file name atomic coordinates (in XYZ format)  
-METHOD - method for calculated properties in vacuum and geometry optimization 
-solventfile - solvent file for calculate free energy (see ORCA6 manual, page 1027)  
-solvent - solvent name for calculate free energy (see ORCA6 manual, table of solvents), default water  
-CHARGE - charge of system, dafault 0  
-NOVACUUM - skip calculation in vacuum  
-NTHREADS - number of thread, default 1
-OPT - optimization geometry with use SMD and solvent from option "--solvent"
+--job - file name atomic coordinates (in XYZ format)  
+--method - method for calculated properties in vacuum and geometry optimization 
+--solventfile - solvent file for calculate free energy (see ORCA6 manual, page 1027)  
+--solvent - solvent name for calculate free energy (see ORCA6 manual, table of solvents), default water  
+-c - charge of system, dafault 0  
+--novacuum - skip calculation in vacuum  
+-n - number of thread, default 1  
+--opt - optimization geometry with use SMD and solvent from option "--solvent"
 
 The script contains variables that you can override according to your own settings:
 - WORK_DIR  
