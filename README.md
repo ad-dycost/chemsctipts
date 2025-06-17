@@ -43,7 +43,7 @@ free_energy_liquid.py [-h] --job FILE [-c CHARGE] [-t TEMPERATURE [TEMPERATURE .
 ```
 --job - file name (without extension) with atomic coordinates (in XYZ format) and Hessian are taken from previous job on geometry optimization and Hessian calculation in ORCA  
 -c - charge of system, default 0  
--t - temperarure(s) in Kelvin at which thermodynamic parameters will be calculated (separated by spaces), default 298
+-t - temperarure(s) in Kelvin at which thermodynamic parameters will be calculated (separated by spaces), default 298  
 -n - number of thread, default 1
 
 The script contains variables that you can override according to your own settings:
